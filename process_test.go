@@ -1,4 +1,4 @@
-package main
+package stochos
 
 import (
 	"math"

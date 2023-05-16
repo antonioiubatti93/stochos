@@ -23,7 +23,7 @@ cover:
 .PHONY: build
 build:
 	mkdir -p $(EXEDIR)
-	go build -o ./bin .
+	go build -o $(EXEDIR) ./cmd/main.go
 
 run: build
-	$(EXEDIR)/stochos -o $(EXEDIR)/paths.png
+	$(EXEDIR)/main -o $(EXEDIR)/paths.png

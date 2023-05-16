@@ -1,4 +1,4 @@
-package main
+package stochos
 
 type Drift interface {
 	Value(s, t float64) float64
