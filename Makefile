@@ -1,5 +1,6 @@
-COVER := cover.out
-TFLAGS = -race -coverprofile=bin/$(COVER)
+EXEDIR := ./bin
+COVER := $(EXEDIR)/cover.out
+TFLAGS = -race -coverprofile=$(COVER)
 
 PHONY: fmt
 fmt:
@@ -21,8 +22,8 @@ cover:
 
 .PHONY: build
 build:
-	mkdir -p bin
+	mkdir -p $(EXEDIR)
 	go build -o ./bin .
 
 run: build
-	./bin/stochos
+	$(EXEDIR)/stochos
