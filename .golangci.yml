@@ -1,0 +1,57 @@
+linters:
+  enable-all: true
+  disable:
+    - dupl
+    - exhaustivestruct
+    - funlen
+    - gochecknoglobals
+    - goconst
+    - goerr113
+    - gomnd
+    - interfacer
+    - lll
+    - maligned
+    - nlreturn
+    - paralleltest
+    - wrapcheck
+    - wsl
+    - varnamelen
+    - scopelint
+    - golint
+    - ireturn
+    - bodyclose
+    - contextcheck
+    - gosimple
+    - nilerr
+    - noctx
+    - rowserrcheck
+    - sqlclosecheck
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - tparallel
+    - unparam
+    - unused
+    - wastedassign
+    - exhaustruct
+    # Deprecated
+    - ifshort
+    - nosnakecase
+    - deadcode
+    - varcheck
+
+issues:
+  new-from-rev: HEAD
+  exclude-rules:
+    # Exclude some linters from running on tests files.
+    - path: _test\.go
+      linters:
+        - maligned
+        - testpackage
+
+linters-settings:
+  tagliatelle:
+    case:
+      rules:
+        json: camel
+        yaml: snake
