@@ -75,3 +75,23 @@ func Test_Simulate_Numéraire(t *testing.T) {
 		})
 	}
 }
+
+func Test_Simulate_LocalVolatility_FlatSurface(t *testing.T) {
+	t.Parallel()
+
+	const (
+		value = 1.0
+		mu    = 0.02
+		vol   = 0.2
+		seed  = 123243
+		tol   = 1.0e-15
+	)
+
+	grid := NewUniformTimeGrid(0.0, 10.0, 1.0)
+	drift := NewConstantDrift(mu)
+
+	lv := Simulate(NewLocalVolatility(value, drift, NewFlatSurface(vol), seed), grid)
+	bs := Simulate(NewGeometricBrownian(value, drift, vol, seed), grid)
+
+	assert.InDeltaSlice(t, bs, lv, tol)
+}
