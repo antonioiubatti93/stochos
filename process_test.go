@@ -20,25 +20,25 @@ func Test_Simulate_Numéraire(t *testing.T) {
 	}{
 		{
 			"empty grid",
-			NewNuméraire(NewZeroDrift(), 1.0),
+			NewNuméraire(1.0, NewZeroDrift()),
 			NewTimeGrid(),
 			Path{},
 		},
 		{
 			"single point",
-			NewNuméraire(NewZeroDrift(), 1.0),
+			NewNuméraire(1.0, NewZeroDrift()),
 			NewTimeGrid(0.0),
 			Path{1.0},
 		},
 		{
 			"flat numéraire",
-			NewNuméraire(NewZeroDrift(), 1.0),
+			NewNuméraire(1.0, NewZeroDrift()),
 			NewTimeGrid(0.0, 1.0, 2.0, 3.0),
 			Path{1.0, 1.0, 1.0, 1.0},
 		},
 		{
 			"numéraire",
-			NewNuméraire(NewConstantDrift(math.Log(1.01)), 1.0),
+			NewNuméraire(1.0, NewConstantDrift(math.Log(1.01))),
 			NewUniformTimeGrid(0.0, 3.0, 3),
 			Path{1.0, 1.01, 1.0201, 1.030301},
 		},

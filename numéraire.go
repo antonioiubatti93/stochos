@@ -3,8 +3,8 @@ package main
 import "math"
 
 type Numéraire struct {
-	drift Drift
 	value State
+	drift Drift
 }
 
 var _ Process = &Numéraire{}
@@ -19,9 +19,9 @@ func (n *Numéraire) Next(s, t float64) State {
 	return n.value
 }
 
-func NewNuméraire(drift Drift, value float64) *Numéraire {
+func NewNuméraire(value State, drift Drift) *Numéraire {
 	return &Numéraire{
-		drift: drift,
 		value: value,
+		drift: drift,
 	}
 }
