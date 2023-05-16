@@ -18,3 +18,11 @@ test:
 .PHONY: cover
 cover:
 	go tool cover -html=$(COVER) -o $(COVER:.out=.html)
+
+.PHONY: build
+build:
+	mkdir -p bin
+	go build -o ./bin .
+
+run: build
+	./bin/stochos
