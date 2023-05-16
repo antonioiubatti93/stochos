@@ -1,4 +1,4 @@
-package main
+package stochos
 
 type VolatilitySurface interface {
 	Value(t, m float64) float64

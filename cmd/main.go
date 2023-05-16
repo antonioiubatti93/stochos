@@ -6,6 +6,7 @@ import (
 	"log"
 	"math"
 
+	"github.com/antonioiubatti93/stochos"
 	"gonum.org/v1/plot"
 	"gonum.org/v1/plot/plotter"
 	"gonum.org/v1/plot/vg"
@@ -28,27 +29,27 @@ func main() {
 		seed  = 1256
 	)
 
-	grid := NewUniformTimeGrid(0.0, 10.0, 1000)
-	drift := NewConstantDrift(mu)
+	grid := stochos.NewUniformTimeGrid(0.0, 10.0, 1000)
+	drift := stochos.NewConstantDrift(mu)
 
 	for _, tc := range []struct {
 		name    string
-		process Process
+		process stochos.Process
 		color   color.RGBA
 	}{
 		{
 			"numéraire",
-			NewNuméraire(value, drift),
+			stochos.NewNuméraire(value, drift),
 			color.RGBA{A: 255, B: 255},
 		},
 		{
 			"black scholes",
-			NewGeometricBrownian(value, drift, sigma, seed),
+			stochos.NewGeometricBrownian(value, drift, sigma, seed),
 			color.RGBA{A: 255, R: 255},
 		},
 		{
 			"local volatility",
-			NewLocalVolatility(value, drift, VolatilitySurfaceFunc(func(_, m float64) float64 {
+			stochos.NewLocalVolatility(value, drift, stochos.VolatilitySurfaceFunc(func(_, m float64) float64 {
 				x := m/value - 1.0
 				return sigma * math.Sqrt(1.0+x*x)
 			}), seed),
@@ -56,7 +57,7 @@ func main() {
 		},
 	} {
 		xys := make(plotter.XYs, 0, len(grid))
-		for k, v := range Simulate(tc.process, grid) {
+		for k, v := range stochos.Simulate(tc.process, grid) {
 			xys = append(xys, plotter.XY{
 				X: grid[k],
 				Y: v,

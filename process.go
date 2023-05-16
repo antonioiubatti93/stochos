@@ -1,4 +1,4 @@
-package main
+package stochos
 
 type State = float64
 
