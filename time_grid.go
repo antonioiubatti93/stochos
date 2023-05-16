@@ -4,6 +4,20 @@ import "golang.org/x/exp/slices"
 
 type TimeGrid []float64
 
+func (g TimeGrid) Steps() []float64 {
+	n := len(g)
+	if n < 2 {
+		return nil
+	}
+
+	dts := make([]float64, n-1)
+	for i, t := range g[:n-1] {
+		dts[i] = g[i+1] - t
+	}
+
+	return dts
+}
+
 func NewTimeGrid(ts ...float64) TimeGrid {
 	slices.Sort(ts)
 
