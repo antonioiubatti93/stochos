@@ -46,16 +46,24 @@ func Test_Simulate_Numéraire(t *testing.T) {
 			Path{1.0, 1.01, 1.0201, 1.030301},
 		},
 		{
-			"black scholes/no drift/no volatility",
-			NewBlackScholes(1.0, NewZeroDrift(), 0.0, seed),
+			"geometric brownian/no drift/no volatility",
+			NewGeometricBrownian(1.0, NewZeroDrift(), 0.0, seed),
 			NewTimeGrid(0.0, 1.0, 2.0),
 			Path{1.0, 1.0, 1.0},
 		},
 		{
-			"black scholes/with drift/no volatility",
-			NewBlackScholes(1.0, NewConstantDrift(math.Log(1.01)), 0.0, seed),
+			"geometric brownian/with drift/no volatility",
+			NewGeometricBrownian(1.0, NewConstantDrift(math.Log(1.01)), 0.0, seed),
 			NewTimeGrid(0.0, 1.0, 2.0),
 			Path{1.0, 1.01, 1.0201},
+		},
+		{
+			"geometric/no drift/with diffusion",
+			NewGeometric(1.0, NewZeroDrift(), 0.2, DistributionFunc(func() float64 {
+				return -1.0
+			})),
+			NewTimeGrid(0.0, 1.0),
+			Path{1.0, math.Exp(-0.5*0.04 - 1.0*0.2)},
 		},
 	} {
 		tc := tc
