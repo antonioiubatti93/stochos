@@ -26,4 +26,4 @@ build:
 	go build -o ./bin .
 
 run: build
-	$(EXEDIR)/stochos
+	$(EXEDIR)/stochos -o $(EXEDIR)/paths.png
