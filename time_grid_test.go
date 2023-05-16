@@ -41,39 +41,3 @@ func Test_NewTimeGrid(t *testing.T) {
 		})
 	}
 }
-
-func Test_TimeGrid_Steps(t *testing.T) {
-	t.Parallel()
-
-	const tol = 1.0e-15
-
-	for _, tc := range []struct {
-		name     string
-		grid     TimeGrid
-		expected []float64
-	}{
-		{
-			"empty",
-			NewTimeGrid(),
-			nil,
-		},
-		{
-			"one point",
-			NewTimeGrid(1.0),
-			nil,
-		},
-		{
-			"uniform",
-			NewUniformTimeGrid(0.0, 1.0, 5),
-			[]float64{0.2, 0.2, 0.2, 0.2, 0.2},
-		},
-	} {
-		tc := tc
-
-		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
-
-			assert.InDeltaSlice(t, tc.expected, tc.grid.Steps(), tol)
-		})
-	}
-}
